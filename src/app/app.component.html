@@ -1,0 +1,118 @@
+
+<div class="container">
+ 
+  <div class="row" style="text-align:center">
+    <img src="./assets/logo_gestart.png">
+  </div>
+
+
+  <br>
+  <h3 style="margin-bottom: 2%; text-align:center">A maior administradora de condomínios do Norte e Nordeste, líder no segmento com mais de 29 anos de experiência, mais de 500 clientes e mais de 35 mil unidades atendidas.</h3>
+
+
+  
+
+ 
+  
+  <div>
+
+    <div >
+      <form class="form-inline" style=" text-align:center" #form="ngForm">
+        <div id="inputs" style="width: 100%;" class="form-group">
+          <!-- input sem o auto complete -->
+          <!-- <input type="text" class="form-control" name="endereco" [(ngModel)]="endereco" placeholder="Endereço"
+            required> -->
+          <!-- caso queira inserir o select para mudar tipo de pesquisa -->
+          <!-- <select class="form-control" (change)="mudarTipoBusca($event)">
+            <option value="geocode">
+              Endereço
+            </option>
+            <option value="establishment">
+              Estabelecimento
+            </option>
+          </select> -->
+          <!-- input com auto complete -->
+          <AutocompleteComponent   (setAddress)="getAddress($event)" adressType="{{tipoBusca}}"></AutocompleteComponent>
+          <input type="number" class="form-control col-12 col-sm-4 col-md-2" name="distancia" [(ngModel)]="distancia" placeholder="Raio (Km)"
+          required>
+          
+          <button type="button" (click)="prepararEndereco()" [disabled]="form.invalid" class="btn btn-success col-12 btn-block col-md-1">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+              <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+            </svg>
+          </button>
+         
+        </div>
+       
+        
+        <!-- <button type="button" (click)="prepararEndereco()" class="btn btn-success" [disabled]="form.invalid">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+          </svg></button> -->
+         
+      </form>
+    </div>
+  </div>
+ 
+  <br>
+
+  <br>
+  <div  class="row">
+    <div >
+      <div class="text-center">
+        <h3>
+          <div #gmap style="width:100%;height:300px"></div>
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  
+  <mat-expansion-panel  *ngIf="qtdUnidade" >
+    <mat-expansion-panel-header style="text-align:center">
+      <mat-panel-title   >
+            Condominios: {{locations.length}} | Unidades: {{qtdUnidade}} | Publico Alvo: {{qtdPublico}} 
+      
+        </mat-panel-title>
+    
+    </mat-expansion-panel-header>
+
+
+    <!-- <div>
+      <nz-table #headerTable [nzData]="locations" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
+        <thead>
+          
+        </thead>
+        <tbody>
+          <tr *ngFor="let cond of locations">
+            <td> {{cond.NOMCON}}</td>
+            <td> {{cond.DISTANCIA | number : '1.2-2'}} KM</td>
+            <td> {{cond.QTDE_UNIDADES}}</td>
+            <td> {{cond.QTDE_UNIDADES * qtdPessoa | number:'1.0-0'}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div> -->
+    <div>
+      <cdk-virtual-scroll-viewport  itemSize="5" class="demo-infinite-container">
+        <nz-list>
+          <nz-list-item  *cdkVirtualFor="let item of locations">
+            <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
+            <nz-list-item-meta
+              *ngIf="item"
+              nzAvatar="./assets/condominio.png"
+              [nzDescription]="item.NOMCON"
+            >
+              <nz-list-item-meta-title>
+                <a>{{ item.DISTANCIA | number : '1.2-2'}} KM</a><a> | {{ item.QTDE_UNIDADES }} Unidades | {{item.QTDE_UNIDADES * qtdPessoa | number:'1.0-0'}} Publico/médio</a>
+              </nz-list-item-meta-title>
+            </nz-list-item-meta>
+          </nz-list-item>
+        </nz-list>
+      </cdk-virtual-scroll-viewport>
+    </div>
+   </mat-expansion-panel>
+
+</div>

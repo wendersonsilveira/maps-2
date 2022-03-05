@@ -1,0 +1,43 @@
+button,
+input {
+  /* margin-left: 10px */
+}
+
+
+
+.mat-expansion-panel-header-title{
+  display: block;
+}
+
+.row{
+  display: block;
+}
+
+@media screen and (min-width: 577px){
+	#inputs{
+		margin-left: 30%;
+	}
+}
+
+
+
+  h3 {
+	color: gray;
+	margin-bottom: 0;
+	font-size: 20px;
+
+  }
+  #valor{
+	font-size: 40px;
+
+  }
+
+  .demo-infinite-container {
+	height: 300px;
+	border: 1px solid #e8e8e8;
+	border-radius: 4px;
+  }
+
+  nz-list {
+	padding: 24px;
+  }

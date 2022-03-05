@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "angularCompilerOptions": {
+    "enableIvy": false
+  },
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "types": ["googlemaps"],
+    "module": "es2015",
+    "types": []
+  },
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
+}
