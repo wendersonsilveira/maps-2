@@ -17,6 +17,7 @@ export class GoogleServiceService {
   );
 
   converterEndereco(endereco: any) {
+    console.log('Endereço: ' + endereco)
     return this.http.get(this.apiGeoCode + endereco + this.KEY);
   }
 }
